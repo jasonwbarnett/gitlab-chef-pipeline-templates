@@ -28,7 +28,7 @@ foodcritic:
 unit:
   stage: unit
   script:
-    - rspec
+    - rspec --format documentation --color
 
 .integration: &tk
   stage: integration
