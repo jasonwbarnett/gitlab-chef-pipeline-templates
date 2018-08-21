@@ -5,9 +5,15 @@ before_script:
   - chef --version
 
 stages:
+  - syntax
   - lint
   - unit
   - integration
+
+syntax:
+  stage: syntax
+  script:
+    - knife cookbook test -o . -a
 
 cookstyle:
   stage: lint
