@@ -9,10 +9,14 @@ stages:
   - unit
   - integration
 
-lint:
+cookstyle:
   stage: lint
   script:
     - cookstyle
+
+foodcritic:
+  stage: lint
+  script:
     - foodcritic --exclude test --epic-fail any .
 
 unit:
