@@ -1,0 +1,56 @@
+image: "chef/chefdk:3.1.0"
+
+before_script:
+  - env
+  - chef --version
+
+stages:
+  - lint
+  - unit
+  - integration
+
+lint:
+  stage: lint
+  script:
+    - cookstyle
+    - foodcritic --exclude test --epic-fail any .
+
+unit:
+  stage: unit
+  script:
+    - rspec
+
+.integration: &tk
+  stage: integration
+  before_script:
+    - env
+    - chef --version
+    - apt-get update && apt-get -y install rsync
+  script:
+    - kitchen verify $CI_BUILD_NAME
+  after_script:
+    - kitchen destroy $CI_BUILD_NAME
+
+# "centos-5":
+#   <<: *tk
+#
+# "centos-6":
+#   <<: *tk
+#
+# "centos-7":
+#   <<: *tk
+#
+# "debian-7":
+#   <<: *tk
+#
+# "debian-8":
+#   <<: *tk
+#
+# "ubuntu-1204":
+#   <<: *tk
+#
+# "ubuntu-1404":
+#   <<: *tk
+
+"ubuntu-1604":
+  <<: *tk
