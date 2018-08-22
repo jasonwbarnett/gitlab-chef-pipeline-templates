@@ -32,6 +32,7 @@ unit:
   script:
     - rspec --format documentation --color
 
+# TODO: Make supermarket publish work, and probably optional
 supermarket:
   stage: publish
   only:
@@ -39,6 +40,7 @@ supermarket:
   script:
     - echo "upload to supermarket"
 
+# TODO: provide helper for multiple Chef Servers
 chef_server:
   stage: publish
   only:
@@ -50,6 +52,7 @@ chef_server:
 .integration: &tk
   stage: integration
   before_script:
+    - export HOME=/opt/knife-config/chef
     - env
     - chef --version
     - apt-get update && apt-get -y install rsync
