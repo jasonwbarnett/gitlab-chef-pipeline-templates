@@ -1,0 +1,22 @@
+image: "chef/chefdk:3.1.0"
+
+before_script:
+  - export HOME=/opt/knife-config/inspec
+  - env
+  - chef --version
+
+stages:
+  - lint
+  - publish
+
+inspec_check:
+  stage: lint
+  script:
+    - inspec check .
+
+publish:
+  stage: publish
+  only:
+    - master
+  script:
+    - inspec compliance upload .
