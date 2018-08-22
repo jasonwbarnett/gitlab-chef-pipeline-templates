@@ -1,17 +1,19 @@
+---
 image: "chef/chefdk:3.1.0"
 
 before_script:
+  - export HOME=/opt/knife-config/chef
   - env
   - chef --version
 
 stages:
-  - syntax
   - lint
   - unit
   - integration
+  - publish
 
 syntax:
-  stage: syntax
+  stage: lint
   script:
     - knife cookbook test -o . -a
 
@@ -29,6 +31,21 @@ unit:
   stage: unit
   script:
     - rspec --format documentation --color
+
+supermarket:
+  stage: publish
+  only:
+    - master
+  script:
+    - echo "upload to supermarket"
+
+chef_server:
+  stage: publish
+  only:
+    - master
+  script:
+    - berks install
+    - berks upload
 
 .integration: &tk
   stage: integration
