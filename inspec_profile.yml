@@ -1,3 +1,4 @@
+---
 image: "chef/chefdk:3.1.0"
 
 before_script:
