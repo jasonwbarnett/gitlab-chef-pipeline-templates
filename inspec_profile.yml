@@ -19,4 +19,4 @@ publish:
   only:
     - master
   script:
-    - inspec compliance upload .
+    - inspec compliance upload . --overwrite
