@@ -7,23 +7,23 @@ before_script:
   - chef --version
 
 stages:
-  - lint
+  - verify
   - unit
   - integration
   - publish
 
 syntax:
-  stage: lint
+  stage: verify
   script:
     - knife cookbook test -o . -a
 
 cookstyle:
-  stage: lint
+  stage: verify
   script:
     - cookstyle
 
 foodcritic:
-  stage: lint
+  stage: verify
   script:
     - foodcritic --exclude test --epic-fail any .
 

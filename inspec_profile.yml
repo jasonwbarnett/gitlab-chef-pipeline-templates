@@ -7,11 +7,11 @@ before_script:
   - chef --version
 
 stages:
-  - lint
+  - verify
   - publish
 
 inspec_check:
-  stage: lint
+  stage: verify
   script:
     - inspec check .
 
