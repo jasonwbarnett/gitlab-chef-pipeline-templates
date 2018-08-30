@@ -2,7 +2,7 @@
 image: "chef/chefdk:3.1.0"
 
 before_script:
-  - export HOME=/opt/knife-config/chef
+  - export HOME=/opt/chef-secrets/chef
   - env
   - chef --version
 
@@ -52,7 +52,7 @@ chef_server:
 .integration: &tk
   stage: integration
   before_script:
-    - export HOME=/opt/knife-config/chef
+    - export HOME=/opt/chef-secrets/chef
     - env
     - chef --version
     - apt-get update && apt-get -y install rsync

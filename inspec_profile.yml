@@ -2,7 +2,7 @@
 image: "chef/chefdk:3.1.0"
 
 before_script:
-  - export HOME=/opt/knife-config/inspec
+  - export HOME=/opt/chef-secrets/inspec
   - env
   - chef --version
 
