@@ -1,0 +1,29 @@
+---
+image: "chef/chefdk:3.1.0"
+
+before_script:
+  - export HOME=/opt/chef-secrets/chef
+  - env
+  - chef --version
+
+stages:
+  - verify
+  - publish
+
+cookstyle:
+  stage: verify
+  script:
+    - cookstyle --except Layout/EndOfLine
+
+build:
+  stage: verify
+  script:
+    - chef install
+
+chef_server:
+  stage: publish
+  only:
+    - master
+  script:
+    - chef install
+    - chef push $CI_PROJECT_NAME
